@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1525822978 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
+	<iostream>
+	"State.h"
+
+1525822985 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.h
+	<string>
+	<vector>
+
+1525822034 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.cpp
+	"State.h"
+	<stdlib.h>
+	<iostream>
+
