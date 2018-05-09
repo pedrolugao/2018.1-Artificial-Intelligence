@@ -2,6 +2,8 @@
 #include<vector>
 #include<string>
 
+#define INFINITY 9999
+
 SearchAlgorithms::SearchAlgorithms(std::string initialString,std::string goalString){
     //ctor
     initial = new State(initialString);
@@ -21,13 +23,14 @@ void SearchAlgorithms::ida(){
     int step = h1(initial);
     int old_step = -1;
     bool success = false;
-    int * minThrow = new int(100);
+    int * minThrow = new int(INFINITY);
     while (old_step!=step && !success){
         if(idaAux(initial,step,0,minThrow,solution)){
             success = true;
         }else{
             old_step = step;
             step = *minThrow;
+            *minThrow = INFINITY;
             //printf("New step is equal to %d",step);
         }
     }

@@ -22,7 +22,7 @@
 	<string>
 	<vector>
 
-1525871782 source:c:\users\pedro\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
+1525877759 source:c:\users\pedro\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
 	<iostream>
 	"State.h"
 	"SearchAlgorithms.h"
@@ -32,7 +32,7 @@
 	<string>
 	<vector>
 
-1525874284 source:c:\users\pedro\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
+1525877714 source:c:\users\pedro\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
 	"SearchAlgorithms.h"
 	<vector>
 	<string>
