@@ -1,11 +1,10 @@
 #include <iostream>
 #include "State.h"
-
+#include "SearchAlgorithms.h"
 using namespace std;
 
 int main(){
-    State st("123456780");
-    st.print();
-    st.getLeft()->print();
+    SearchAlgorithms program("123456078","123456780");
+    program.ida();
     return 0;
 }

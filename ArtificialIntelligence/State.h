@@ -8,6 +8,7 @@ class State{
         State(std::string info);
         virtual ~State();
         void print();
+        std::string getString();
 
         State * getLeft();
         State * getRight();
@@ -24,7 +25,7 @@ class State{
     private:
         int matrix[3][3];
         int i, j;
-        std::string getString();
+
 
 };
 
