@@ -8,24 +8,29 @@ class SearchAlgorithms{
     public:
         SearchAlgorithms(std::string initial,std::string goal);
         virtual ~SearchAlgorithms();
-        void ida();
         void backtracking();
+        void depthSearch();
+        void ida();
 
     protected:
 
     private:
         State* initial;
         State* goal;
-        //Ida aux:
-        bool idaAux(State* s,int step, int cost,int* minThrow, std::vector<State*> &solution);
 
+        //Search functions auxiliar:
+        bool idaAux(State* s,int step, int cost,int* minThrow, std::vector<State*> &solution);
         bool backtrackingAux(State *s, int cost, std::vector<State *> &solution);
+
         //Compare states:
         bool compare(State *s1, State *s2);
 
+        //Auxiliar functions
+        void printSolution(State* path);
         bool onPath(State *s, State *nS);
-        //Heuristic:
-        int h1(State* s);
+
+        //Heuristics:
+        int h1(State* s); //piecesOutOfPlace
 };
 
 #endif // SEARCHALGORITHMS_H

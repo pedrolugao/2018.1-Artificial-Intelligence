@@ -23,22 +23,6 @@ SearchAlgorithms::~SearchAlgorithms(){
     //dtor
 }
 
-/*
-	Checks if a state is already on the current path until the root
-	*@param State *path:				indicates the state from where the path begins
-			State *newState:			indicates the state to be inserted on the path
-	*@return bool:                      0 if path until the root does not contain the newState, 1 otherwise
-*********************************************************/
-bool SearchAlgorithms::onPath(State *path, State *newState){
-    if(path == NULL) // if path equals NULL, the search has found the root, therefore returning false
-        return false;
-    else{
-        if(path->getString() == newState->getString())
-            return true;
-        else
-            return onPath(path->getParent(), newState);
-    }
-}
 
 /*
 	Runs the backtracking search method
@@ -72,7 +56,6 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
     }else{
         State * next = s->getLeft();
         if(next != NULL){
-            next->setParent(s);
             if(!onPath(s, next) && backtrackingAux(next, cost + 1, solution)){
                 solution.push_back(s);
                 return true;
@@ -80,7 +63,6 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
         }
         next = s->getRight();
         if(next != NULL){
-            next->setParent(s);
             if(!onPath(s, next) && backtrackingAux(next, cost + 1, solution)){
                 solution.push_back(s);
                 return true;
@@ -88,7 +70,6 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
         }
         next = s->getTop();
         if(next != NULL){
-            next->setParent(s);
             if(!onPath(s, next) && backtrackingAux(next, cost + 1, solution)){
                 solution.push_back(s);
                 return true;
@@ -96,7 +77,6 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
         }
         next = s->getBottom();
         if(next != NULL){
-            next->setParent(s);
             if(!onPath(s, next) && backtrackingAux(next, cost + 1, solution)){
                 solution.push_back(s);
                 return true;
@@ -105,6 +85,49 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
     }
     return false;
 }
+
+/*
+	Runs the depth search method
+	*@param -
+	*@return void: -
+*********************************************************/
+void SearchAlgorithms::depthSearch(){
+    std::vector<State*> openNodes;
+    std::vector<State*> closedNodes;
+    openNodes.push_back(initial);
+    State * current;
+    bool solutionFound = false;
+    while(!openNodes.empty()){
+        current = openNodes[openNodes.size() -1];
+        openNodes.pop_back();
+
+        State* left = current->getLeft();
+        State* right = current->getRight();
+        State* top = current->getTop();
+        State* bottom = current->getBottom();
+        if(bottom != NULL && !onPath(current,bottom)) openNodes.push_back(bottom);
+        if(top != NULL && !onPath(current,top)) openNodes.push_back(top);
+        if(left != NULL && !onPath(current,left)) openNodes.push_back(left);
+        if(right != NULL && !onPath(current,right)) openNodes.push_back(right);
+
+        closedNodes.push_back(current);
+        if(compare(current,goal)){
+            solutionFound = true;
+            break;
+        }
+    }
+
+    if(solutionFound){
+        printf("Solution found!");
+        printSolution(current);
+    }else{
+        printf("Solution not found!");
+    }
+
+
+}
+
+
 
 /*
 	Runs the IDA* search method
@@ -164,22 +187,22 @@ bool SearchAlgorithms::idaAux(State* s,int step, int cost,int *minThrow, std::ve
         return true;
     }else{
         State* next = s->getLeft();
-        if(next!= NULL && idaAux(next,step,cost+1,minThrow,solution)){
+        if(next!= NULL && !onPath(s,next) && idaAux(next,step,cost+1,minThrow,solution)){
             solution.push_back(s);
             return true;
         }
         next = s->getRight();
-        if(next!= NULL && idaAux(next,step,cost+1,minThrow,solution)){
+        if(next!= NULL && !onPath(s,next) && idaAux(next,step,cost+1,minThrow,solution)){
             solution.push_back(s);
             return true;
         }
         next = s->getTop();
-        if(next!= NULL && idaAux(next,step,cost+1,minThrow,solution)){
+        if(next!= NULL && !onPath(s,next) && idaAux(next,step,cost+1,minThrow,solution)){
             solution.push_back(s);
             return true;
         }
         next = s->getBottom();
-        if(next!= NULL && idaAux(next,step,cost+1,minThrow,solution)){
+        if(next!= NULL && !onPath(s,next) && idaAux(next,step,cost+1,minThrow,solution)){
             solution.push_back(s);
             return true;
         }
@@ -187,17 +210,7 @@ bool SearchAlgorithms::idaAux(State* s,int step, int cost,int *minThrow, std::ve
     }
 }
 
-/*
-	Heuristic function for a specific state
-	*@param State *s:       contains the state to have its heuristic value calculated
-	*@return int:           the heuristic value for a specific state
-*********************************************************/
-int SearchAlgorithms::h1(State* s){
-    if(compare(s,goal)){
-        return 0;
-    }
-    return 1;
-}
+
 
 /*
 	Compares two states
@@ -210,4 +223,50 @@ bool SearchAlgorithms::compare(State *s1, State *s2){
         return true;
     }
     return false;
+}
+
+
+/*
+	Checks if a state is already on the current path until the root
+	*@param State *path:				indicates the state from where the path begins
+			State *newState:			indicates the state to be inserted on the path
+	*@return bool:                      0 if path until the root does not contain the newState, 1 otherwise
+*********************************************************/
+bool SearchAlgorithms::onPath(State *path, State *newState){
+    if(path == NULL) // if path equals NULL, the search has found the root, therefore returning false
+        return false;
+    else{
+        if(path->getString() == newState->getString())
+            return true;
+        else
+            return onPath(path->getParent(), newState);
+    }
+}
+
+/*
+	Print solution
+	*@param State *path:     stores state to be printed and ancestors
+	*@return void:           -
+*********************************************************/
+void SearchAlgorithms::printSolution(State* path){
+    if(path->getParent()!=NULL)
+        printSolution(path->getParent());
+    path->print();
+}
+
+/*
+	Heuristic function for a specific state (piecesOutOfPlace)
+	*@param State *s:       contains the state to have its heuristic value calculated
+	*@return int:           the heuristic value for a specific state
+*********************************************************/
+int SearchAlgorithms::h1(State* s){
+    std::string stateString = s->getString();
+    std::string goalString = goal->getString();
+    int i,piecesOutOfPlace = 0;
+    for(i = 0 ; i<goalString.size();i++){
+        if(stateString[i] != goalString[i]){
+            piecesOutOfPlace++;
+        }
+    }
+    return piecesOutOfPlace;
 }

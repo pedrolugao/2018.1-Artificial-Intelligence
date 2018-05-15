@@ -35,6 +35,7 @@ State * State::getLeft(){
     }
     State * newState = new State(getString());
     newState->changeLeft();
+    newState->setParent(this);
     return newState;
 }
 
@@ -51,6 +52,7 @@ State * State::getRight(){
     }
     State * newState = new State(getString());
     newState->changeRight();
+    newState->setParent(this);
     return newState;
 
 }
@@ -68,6 +70,7 @@ State * State::getTop(){
     }
     State * newState = new State(getString());
     newState->changeTop();
+    newState->setParent(this);
     return newState;
 }
 
@@ -84,6 +87,7 @@ State * State::getBottom(){
     }
     State * newState = new State(getString());
     newState->changeBottom();
+    newState->setParent(this);
     return newState;
 
 }
