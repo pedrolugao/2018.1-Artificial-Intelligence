@@ -10,6 +10,7 @@ class SearchAlgorithms{
         virtual ~SearchAlgorithms();
         void backtracking();
         void depthSearch();
+        void orderedSearch();
         void ida();
 
     protected:

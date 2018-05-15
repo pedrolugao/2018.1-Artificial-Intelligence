@@ -12,5 +12,6 @@ int main(){
     program.ida();
     //program.backtracking();
     //program.depthSearch();
+    //program.orderedSearch();
     return 0;
 }
