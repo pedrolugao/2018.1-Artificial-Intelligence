@@ -20,11 +20,16 @@ class State{
         void changeTop();
         void changeBottom();
 
+        State * getParent();
+        void setParent(State *nParent);
+
+
     protected:
 
     private:
         int matrix[3][3];
         int i, j;
+        State * parent;
 
 
 };

@@ -4,6 +4,7 @@
 #include <sstream>
 
 State::State(std::string info){
+    parent = NULL;
     for(int k = 0; k < info.size(); k++){
         const char buffer = info[k];
         matrix[k/3][k%3] = atoi(&buffer);
@@ -104,3 +105,10 @@ std::string State::getString(){
     return mstring.str();
 }
 
+State * State::getParent(){
+    return parent;
+}
+
+void State::setParent(State *nParent){
+    parent = nParent;
+}
