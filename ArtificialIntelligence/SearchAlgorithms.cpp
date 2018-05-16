@@ -1,7 +1,9 @@
 #include "SearchAlgorithms.h"
-#include<vector>
-#include<string>
+#include <vector>
+#include <string>
+#include <list>
 #include <stdio.h>
+#include <iostream>
 
 #define INFINITY 9999
 
@@ -43,7 +45,7 @@ void SearchAlgorithms::backtracking(){
 
 /*
 	Recursive auxiliar function for the backtracking search method
-	ORDER: left, rigth, top, bottom
+	ORDER: left, right, top, bottom
 	*@param State *s:           indicates the state from where the path begins
             int cost:           indicates the cost from the path
 			std::vector<State*>	stores the current solution
@@ -86,6 +88,47 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
     return false;
 }
 
+
+/*
+	Runs the breadth search method
+	*@param -
+	*@return void: -
+*********************************************************/
+void SearchAlgorithms::breadthSearch(){
+    std::list<State*> openNodes;
+    std::vector<State*> closedNodes;
+    openNodes.push_back(initial);
+    State * current;
+    bool solutionFound = false;
+    while(!openNodes.empty()){
+        current = openNodes.front();
+        openNodes.pop_front();
+
+        State* left = current->getLeft();
+        State* right = current->getRight();
+        State* top = current->getTop();
+        State* bottom = current->getBottom();
+        if(left != NULL && !onPath(current,left)) openNodes.push_back(left);
+        if(right != NULL && !onPath(current,right)) openNodes.push_back(right);
+        if(top != NULL && !onPath(current,top)) openNodes.push_back(top);
+        if(bottom != NULL && !onPath(current,bottom)) openNodes.push_back(bottom);
+
+        closedNodes.push_back(current);
+        if(compare(current,goal)){
+            solutionFound = true;
+            break;
+        }
+    }
+
+    if(solutionFound){
+        printf("Solution found!");
+        printSolution(current);
+    }else{
+        printf("Solution not found!");
+    }
+
+}
+
 /*
 	Runs the depth search method
 	*@param -
@@ -107,8 +150,8 @@ void SearchAlgorithms::depthSearch(){
         State* bottom = current->getBottom();
         if(bottom != NULL && !onPath(current,bottom)) openNodes.push_back(bottom);
         if(top != NULL && !onPath(current,top)) openNodes.push_back(top);
-        if(left != NULL && !onPath(current,left)) openNodes.push_back(left);
         if(right != NULL && !onPath(current,right)) openNodes.push_back(right);
+        if(left != NULL && !onPath(current,left)) openNodes.push_back(left);
 
         closedNodes.push_back(current);
         if(compare(current,goal)){
@@ -128,6 +171,72 @@ void SearchAlgorithms::depthSearch(){
 }
 
 /*
+	Runs the greedy search method
+	*@param -
+	*@return void: -
+*********************************************************/
+void SearchAlgorithms::greedy(){
+    std::vector<State*> openNodes;
+    std::vector<int> openNodesCosts;
+    std::vector<State*> closedNodes;
+    openNodes.push_back(initial);
+    openNodesCosts.push_back(h1(initial));
+    State * current;
+    int currentCost;
+    bool solutionFound = false;
+    while(!openNodes.empty()){
+        //Find min element in costs
+        int minIndex = 0;
+        for(unsigned int j=0;j<openNodesCosts.size();j++){
+            if(openNodesCosts[j]<openNodesCosts[minIndex]){
+                minIndex = j;
+            }
+        }
+
+        //Get min element from open nodes and erase from list
+        current = openNodes[minIndex];
+        currentCost = openNodesCosts[minIndex];
+        openNodes.erase(openNodes.begin() + minIndex);
+        openNodesCosts.erase(openNodesCosts.begin() + minIndex);
+
+        State* left = current->getLeft();
+        State* right = current->getRight();
+        State* top = current->getTop();
+        State* bottom = current->getBottom();
+
+        if(bottom != NULL && !onPath(current,bottom)){
+            openNodes.push_back(bottom);
+            openNodesCosts.push_back(h1(bottom));
+        }
+        if(top != NULL && !onPath(current,top)){
+            openNodes.push_back(top);
+            openNodesCosts.push_back(h1(top));
+        }
+        if(left != NULL && !onPath(current,left)){
+            openNodes.push_back(left);
+            openNodesCosts.push_back(h1(left));
+        }
+        if(right != NULL && !onPath(current,right)){
+            openNodes.push_back(right);
+            openNodesCosts.push_back(h1(right));
+        }
+
+        closedNodes.push_back(current);
+        if(compare(current,goal)){
+            solutionFound = true;
+            break;
+        }
+    }
+
+    if(solutionFound){
+        printf("Solution found!");
+        printSolution(current);
+    }else{
+        printf("Solution not found!");
+    }
+}
+
+/*
 	Runs the ordered search method
 	*@param -
 	*@return void: -
@@ -143,8 +252,8 @@ void SearchAlgorithms::orderedSearch(){
     bool solutionFound = false;
     while(!openNodes.empty()){
         //Find min element in costs
-        int j,minIndex = 0;
-        for(j=0;j<openNodesCosts.size();j++){
+        int minIndex = 0;
+        for(unsigned int j=0;j<openNodesCosts.size();j++){
             if(openNodesCosts[j]<openNodesCosts[minIndex]){
                 minIndex = j;
             }
@@ -216,8 +325,8 @@ void SearchAlgorithms::ida(){
     }
     if(success){
         printf("Solution found!\n");
-        int i;
-        for(i = (solution.size()-1);i>=0;i--){
+
+        for(int i = (solution.size()-1);i>=0;i--){
             solution[i]->print();
         }
         //Print solution backwards
@@ -229,7 +338,7 @@ void SearchAlgorithms::ida(){
 
 /*
 	Recursive auxiliar function for the IDA* search method
-	ORDER: left, rigth, top, bottom
+	ORDER: left, right, top, bottom
 	*@param State *s:           indicates the state from where the path begins
             int step:           stores the maximun step for a specific run
             int cost:           indicates the cost from the path
@@ -326,8 +435,8 @@ void SearchAlgorithms::printSolution(State* path){
 int SearchAlgorithms::h1(State* s){
     std::string stateString = s->getString();
     std::string goalString = goal->getString();
-    int i,piecesOutOfPlace = 0;
-    for(i = 0 ; i<goalString.size();i++){
+    int piecesOutOfPlace = 0;
+    for(unsigned int i = 0 ; i<goalString.size();i++){
         if(stateString[i] != goalString[i]){
             piecesOutOfPlace++;
         }

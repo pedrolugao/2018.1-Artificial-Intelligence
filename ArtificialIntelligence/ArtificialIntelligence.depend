@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1526360568 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
+1526505929 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
 	<iostream>
 	"State.h"
 	"SearchAlgorithms.h"
@@ -8,7 +8,7 @@
 	<string>
 	<vector>
 
-1526357450 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.cpp
+1526500885 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.cpp
 	"State.h"
 	<stdlib.h>
 	<iostream>
@@ -40,13 +40,15 @@
 	<string>
 	<stdio.h>
 
-1526360401 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
+1526504404 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
 	"SearchAlgorithms.h"
 	<vector>
 	<string>
+	<list>
 	<stdio.h>
+	<iostream>
 
-1526357478 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.h
+1526503262 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.h
 	"State.h"
 	<string>
 	<vector>

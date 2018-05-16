@@ -8,8 +8,10 @@ class SearchAlgorithms{
     public:
         SearchAlgorithms(std::string initial,std::string goal);
         virtual ~SearchAlgorithms();
+        void greedy();
         void backtracking();
         void depthSearch();
+        void breadthSearch();
         void orderedSearch();
         void ida();
 
