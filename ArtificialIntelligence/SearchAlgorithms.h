@@ -9,6 +9,7 @@ class SearchAlgorithms{
         SearchAlgorithms(std::string initial,std::string goal);
         virtual ~SearchAlgorithms();
         void greedy();
+        void astar();
         void backtracking();
         void depthSearch();
         void breadthSearch();

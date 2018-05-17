@@ -237,6 +237,72 @@ void SearchAlgorithms::greedy(){
 }
 
 /*
+	Runs the A* search method
+	*@param -
+	*@return void: -
+*********************************************************/
+void SearchAlgorithms::astar(){
+    std::vector<State*> openNodes;
+    std::vector<int> openNodesCosts;
+    std::vector<State*> closedNodes;
+    openNodes.push_back(initial);
+    openNodesCosts.push_back(0 + h1(initial));
+    State * current;
+    int currentCost;
+    bool solutionFound = false;
+    while(!openNodes.empty()){
+        //Find min element in costs
+        int minIndex = 0;
+        for(unsigned int j=0;j<openNodesCosts.size();j++){
+            if(openNodesCosts[j]<openNodesCosts[minIndex]){
+                minIndex = j;
+            }
+        }
+
+        //Get min element from open nodes and erase from list
+        current = openNodes[minIndex];
+        currentCost = openNodesCosts[minIndex];
+        openNodes.erase(openNodes.begin() + minIndex);
+        openNodesCosts.erase(openNodesCosts.begin() + minIndex);
+
+        State* left = current->getLeft();
+        State* right = current->getRight();
+        State* top = current->getTop();
+        State* bottom = current->getBottom();
+
+        if(bottom != NULL && !onPath(current,bottom)){
+            openNodes.push_back(bottom);
+            openNodesCosts.push_back(currentCost - h1(current) + 1 + h1(bottom));
+        }
+        if(top != NULL && !onPath(current,top)){
+            openNodes.push_back(top);
+            openNodesCosts.push_back(currentCost - h1(current) + 1 + h1(top));
+        }
+        if(left != NULL && !onPath(current,left)){
+            openNodes.push_back(left);
+            openNodesCosts.push_back(currentCost - h1(current) + 1 + h1(left));
+        }
+        if(right != NULL && !onPath(current,right)){
+            openNodes.push_back(right);
+            openNodesCosts.push_back(currentCost - h1(current) + 1 + h1(right));
+        }
+
+        closedNodes.push_back(current);
+        if(compare(current,goal)){
+            solutionFound = true;
+            break;
+        }
+    }
+
+    if(solutionFound){
+        printf("Solution found!");
+        printSolution(current);
+    }else{
+        printf("Solution not found!");
+    }
+}
+
+/*
 	Runs the ordered search method
 	*@param -
 	*@return void: -
