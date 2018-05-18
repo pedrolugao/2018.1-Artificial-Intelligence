@@ -21,12 +21,12 @@ class SearchAlgorithms{
     public:
         SearchAlgorithms(std::string initial,std::string goal);
         virtual ~SearchAlgorithms();
-        void greedy();
-        void astar();
+        strMethodStats greedy();
+        strMethodStats astar();
         void backtracking();
-        void depthSearch();
+        strMethodStats depthSearch();
         strMethodStats breadthSearch();
-        void orderedSearch();
+        strMethodStats orderedSearch();
         void ida();
 
         void printSolution(State* path);

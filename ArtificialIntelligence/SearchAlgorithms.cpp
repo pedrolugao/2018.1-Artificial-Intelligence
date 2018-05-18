@@ -4,7 +4,7 @@
 #include <list>
 #include <stdio.h>
 #include <iostream>
-#include <windows.h>
+#include<chrono>
 #define INFINITY 9999
 
 /*
@@ -101,9 +101,10 @@ void SearchAlgorithms::printStats(strMethodStats stats, bool flag){
 	*@return void: -
 *********************************************************/
 strMethodStats SearchAlgorithms::breadthSearch(){
-    LARGE_INTEGER freq, time1, time2;
-    QueryPerformanceFrequency(&freq);
-    QueryPerformanceCounter(&time1);
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
+
     std::list<State*> openNodes;
     std::vector<State*> closedNodes;
     openNodes.push_back(initial);
@@ -128,15 +129,12 @@ strMethodStats SearchAlgorithms::breadthSearch(){
             break;
         }
     }
-    QueryPerformanceCounter(&time2);
-    float time = (float) ((time2.QuadPart - time1.QuadPart)/freq.QuadPart);
 
-    //if(solutionFound){
-        //printf("Solution found!");
-        //printSolution(current);
-    //}else{
-        //printf("Solution not found!");
-    //}
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
     return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
 }
 
@@ -145,7 +143,11 @@ strMethodStats SearchAlgorithms::breadthSearch(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::depthSearch(){
+strMethodStats SearchAlgorithms::depthSearch(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> openNodes;
     std::vector<State*> closedNodes;
     openNodes.push_back(initial);
@@ -171,12 +173,12 @@ void SearchAlgorithms::depthSearch(){
         }
     }
 
-    if(solutionFound){
-        printf("Solution found!");
-        printSolution(current);
-    }else{
-        printf("Solution not found!");
-    }
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
 
 
 }
@@ -186,7 +188,11 @@ void SearchAlgorithms::depthSearch(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::greedy(){
+strMethodStats SearchAlgorithms::greedy(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
     std::vector<State*> closedNodes;
@@ -239,12 +245,12 @@ void SearchAlgorithms::greedy(){
         }
     }
 
-    if(solutionFound){
-        printf("Solution found!");
-        //printSolution(current);
-    }else{
-        printf("Solution not found!");
-    }
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
 }
 
 /*
@@ -252,7 +258,11 @@ void SearchAlgorithms::greedy(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::astar(){
+strMethodStats SearchAlgorithms::astar(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
     std::vector<State*> closedNodes;
@@ -305,12 +315,13 @@ void SearchAlgorithms::astar(){
         }
     }
 
-    if(solutionFound){
-        printf("Solution found!");
-        printSolution(current);
-    }else{
-        printf("Solution not found!");
-    }
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
+
 }
 
 /*
@@ -318,7 +329,11 @@ void SearchAlgorithms::astar(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::orderedSearch(){
+strMethodStats SearchAlgorithms::orderedSearch(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
     std::vector<State*> closedNodes;
@@ -371,12 +386,12 @@ void SearchAlgorithms::orderedSearch(){
         }
     }
 
-    if(solutionFound){
-        printf("Solution found!");
-        printSolution(current);
-    }else{
-        printf("Solution not found!");
-    }
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
 }
 
 /*
