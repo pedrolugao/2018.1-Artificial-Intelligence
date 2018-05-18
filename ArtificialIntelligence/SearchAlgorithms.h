@@ -1,8 +1,21 @@
 #ifndef SEARCHALGORITHMS_H
 #define SEARCHALGORITHMS_H
 #include "State.h"
-#include<string>
-#include<vector>
+#include <time.h>
+#include <string>
+#include <vector>
+
+typedef struct{
+    bool notFound;
+    State * solution;
+    int depth;
+    int cost;
+    int openNodesSize;
+    int closedNodesSize;
+    float ramification;
+    float time;
+}strMethodStats;
+
 
 class SearchAlgorithms{
     public:
@@ -12,10 +25,12 @@ class SearchAlgorithms{
         void astar();
         void backtracking();
         void depthSearch();
-        void breadthSearch();
+        strMethodStats breadthSearch();
         void orderedSearch();
         void ida();
 
+        void printSolution(State* path);
+        void printStats(strMethodStats stats, bool flag = false);
     protected:
 
     private:
@@ -30,11 +45,13 @@ class SearchAlgorithms{
         bool compare(State *s1, State *s2);
 
         //Auxiliar functions
-        void printSolution(State* path);
         bool onPath(State *s, State *nS);
+        strMethodStats buildStats(bool notFound, State * solution, int openNodesSize, int closedNodesSize, float time);
 
         //Heuristics:
         int h1(State* s); //piecesOutOfPlace
+
+
 };
 
 #endif // SEARCHALGORITHMS_H

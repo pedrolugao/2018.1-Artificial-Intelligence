@@ -11,8 +11,8 @@ int main(){
     //SearchAlgorithms program("123506478","123560478"); //possível, p/ backtracking
     //program.ida();
     //program.backtracking();
-    //program.breadthSearch();
+    program.printStats(program.breadthSearch(), true);
     //program.orderedSearch();
-    program.astar();
+    //program.astar();
     return 0;
 }

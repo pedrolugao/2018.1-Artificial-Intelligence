@@ -4,7 +4,7 @@
 #include <list>
 #include <stdio.h>
 #include <iostream>
-
+#include <windows.h>
 #define INFINITY 9999
 
 /*
@@ -88,13 +88,22 @@ bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &
     return false;
 }
 
+void SearchAlgorithms::printStats(strMethodStats stats, bool flag){
+    if(flag)
+        std::cout << "notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time" << std::endl;
+    std::cout << stats.notFound << ", " << stats.depth << ", " << stats.cost << ", " << stats.openNodesSize << ", " << stats.closedNodesSize << ", " << stats.ramification << ", " << stats.time << std::endl;
+
+}
 
 /*
 	Runs the breadth search method
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::breadthSearch(){
+strMethodStats SearchAlgorithms::breadthSearch(){
+    LARGE_INTEGER freq, time1, time2;
+    QueryPerformanceFrequency(&freq);
+    QueryPerformanceCounter(&time1);
     std::list<State*> openNodes;
     std::vector<State*> closedNodes;
     openNodes.push_back(initial);
@@ -119,14 +128,16 @@ void SearchAlgorithms::breadthSearch(){
             break;
         }
     }
+    QueryPerformanceCounter(&time2);
+    float time = (float) ((time2.QuadPart - time1.QuadPart)/freq.QuadPart);
 
-    if(solutionFound){
-        printf("Solution found!");
-        printSolution(current);
-    }else{
-        printf("Solution not found!");
-    }
-
+    //if(solutionFound){
+        //printf("Solution found!");
+        //printSolution(current);
+    //}else{
+        //printf("Solution not found!");
+    //}
+    return buildStats(!solutionFound, current, (int) openNodes.size(), (int) closedNodes.size(), time);
 }
 
 /*
@@ -230,7 +241,7 @@ void SearchAlgorithms::greedy(){
 
     if(solutionFound){
         printf("Solution found!");
-        printSolution(current);
+        //printSolution(current);
     }else{
         printf("Solution not found!");
     }
@@ -480,6 +491,28 @@ bool SearchAlgorithms::onPath(State *path, State *newState){
         else
             return onPath(path->getParent(), newState);
     }
+}
+
+strMethodStats SearchAlgorithms::buildStats(bool notFound, State * solution, int openNodesSize, int closedNodesSize, float time){
+    strMethodStats answer;
+    answer.notFound = notFound;
+
+    answer.solution = solution;
+    answer.openNodesSize = openNodesSize;
+    answer.closedNodesSize = closedNodesSize;
+    answer.time = time;
+
+    answer.ramification = ((float) (openNodesSize + closedNodesSize)/(float) closedNodesSize);
+    State * parent = solution->getParent();
+    int counter = 1;
+    while(parent != NULL){
+        counter += 1;
+        parent = parent->getParent();
+    }
+    answer.cost = counter;
+    answer.depth = counter;
+
+    return answer;
 }
 
 /*
