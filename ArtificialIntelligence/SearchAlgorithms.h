@@ -50,6 +50,7 @@ class SearchAlgorithms{
 
         //Heuristics:
         int h1(State* s); //piecesOutOfPlace
+        int h2(State* s); //manhattanDistance
 
 
 };

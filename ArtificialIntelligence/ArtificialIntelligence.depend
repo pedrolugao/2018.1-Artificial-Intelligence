@@ -54,7 +54,7 @@
 	<string>
 	<vector>
 
-1526665614 source:/home/pedro/Documentos/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/main.cpp
+1526665704 source:/home/pedro/Documentos/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/main.cpp
 	<iostream>
 	"State.h"
 	"SearchAlgorithms.h"
@@ -63,7 +63,7 @@
 	<string>
 	<vector>
 
-1526665199 /home/pedro/Documentos/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/SearchAlgorithms.h
+1526666225 /home/pedro/Documentos/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/SearchAlgorithms.h
 	"State.h"
 	<time.h>
 	<string>

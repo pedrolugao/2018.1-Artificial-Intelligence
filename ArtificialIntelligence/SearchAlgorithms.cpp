@@ -557,3 +557,28 @@ int SearchAlgorithms::h1(State* s){
     }
     return piecesOutOfPlace;
 }
+
+/*
+	Heuristic function for a specific state (manhattanDistance)
+	*@param State *s:       contains the state to have its heuristic value calculated
+	*@return int:           the heuristic value for a specific state
+*********************************************************/
+int SearchAlgorithms::h2(State* s){
+    std::string stateString = s->getString();
+    std::string goalString = goal->getString();
+    int manhattanDistance = 0;
+    for(unsigned int i = 0 ; i<goalString.size();i++){
+        for(unsigned int j = 0;j<stateString.size();j++){
+            if(goalString[i]==stateString[j]){
+                int iGoal,jGoal,iState,jState;
+                iGoal = i/3;
+                jGoal = i%3;
+                iState = j/3;
+                jState = j%3;
+                manhattanDistance += abs(iGoal - iState)+abs(jGoal - jState);
+                break;
+            }
+        }
+    }
+    return manhattanDistance;
+}
