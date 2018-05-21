@@ -3,26 +3,36 @@
 #include <iostream>
 #include <sstream>
 
-State::State(std::string info){
-    parent = NULL;
+
+State::State(std::string info, int width, int heigth){
+    this->width = width;
+    this->heigth = heigth;
+    this->parent = NULL;
+    matrix = new char* [heigth];
+    for(unsigned int j = 0;j<heigth;j++){
+        matrix[j] = new char [width];
+    }
     for(int k = 0; k < info.size(); k++){
-        const char buffer = info[k];
-        matrix[k/3][k%3] = atoi(&buffer);
+        char buffer = info[k];
+        matrix[k/width][k%width] = buffer;
         if(buffer == '0'){
-            i = k/3;
-            j = k%3;
+            i = k/width;
+            j = k%width;
         }
     }
 }
 
 State::~State(){
-
+    for(unsigned int j = 0;j<heigth;j++){
+        delete[] matrix[j];
+    }
+    delete[] matrix;
 }
 
 void State::print(){
     std::cout << "Coordinate: (" << i << "," << j << ")" << std::endl;
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
+    for(int i = 0; i < heigth; i++){
+        for(int j = 0; j < width; j++){
             std::cout << matrix[i][j] << " ";
         }
         std::cout << std::endl;
@@ -33,7 +43,7 @@ State * State::getLeft(){
     if(j == 0){
         return NULL;
     }
-    State * newState = new State(getString());
+    State * newState = new State(getString(),this->width,this->heigth);
     newState->changeLeft();
     newState->setParent(this);
     return newState;
@@ -47,10 +57,10 @@ void State::changeLeft(){
 }
 
 State * State::getRight(){
-    if(j == 2){
+    if(j == width-1){
         return NULL;
     }
-    State * newState = new State(getString());
+    State * newState = new State(getString(),this->width,this->heigth);
     newState->changeRight();
     newState->setParent(this);
     return newState;
@@ -68,7 +78,7 @@ State * State::getTop(){
     if(i == 0){
         return NULL;
     }
-    State * newState = new State(getString());
+    State * newState = new State(getString(),this->width,this->heigth);
     newState->changeTop();
     newState->setParent(this);
     return newState;
@@ -82,10 +92,10 @@ void State::changeTop(){
 }
 
 State * State::getBottom(){
-    if(i == 2){
+    if(i == heigth-1){
         return NULL;
     }
-    State * newState = new State(getString());
+    State * newState = new State(getString(),this->width,this->heigth);
     newState->changeBottom();
     newState->setParent(this);
     return newState;
@@ -101,8 +111,8 @@ void State::changeBottom(){
 
 std::string State::getString(){
     std::stringstream mstring;
-    for(int a = 0; a < 3; a++){
-        for(int b = 0; b < 3; b++){
+    for(int a = 0; a < heigth; a++){
+        for(int b = 0; b < width; b++){
             mstring << matrix[a][b];
         }
     }
@@ -115,4 +125,12 @@ State * State::getParent(){
 
 void State::setParent(State *nParent){
     parent = nParent;
+}
+
+int State::getWidth(){
+    return width;
+}
+
+int State::getHeigth(){
+    return heigth;
 }

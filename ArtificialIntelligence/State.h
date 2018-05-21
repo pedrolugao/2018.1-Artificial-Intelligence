@@ -5,7 +5,7 @@
 
 class State{
     public:
-        State(std::string info);
+        State(std::string info, int width, int heigth);
         virtual ~State();
         void print();
         std::string getString();
@@ -23,11 +23,14 @@ class State{
         State * getParent();
         void setParent(State *nParent);
 
+        int getWidth();
+        int getHeigth();
 
     protected:
 
     private:
-        int matrix[3][3];
+        int width,heigth;
+        char **matrix;
         int i, j;
         State * parent;
 

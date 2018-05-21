@@ -19,15 +19,15 @@ typedef struct{
 
 class SearchAlgorithms{
     public:
-        SearchAlgorithms(std::string initial,std::string goal);
+        SearchAlgorithms(std::string initial,std::string goal, int width, int heigth);
         virtual ~SearchAlgorithms();
         strMethodStats greedy();
         strMethodStats astar();
-        void backtracking();
+        strMethodStats backtracking();
         strMethodStats depthSearch();
         strMethodStats breadthSearch();
         strMethodStats orderedSearch();
-        void ida();
+        strMethodStats ida();
 
         void printSolution(State* path);
         void printStats(strMethodStats stats, bool flag = false);

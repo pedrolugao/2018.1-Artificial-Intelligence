@@ -13,10 +13,10 @@
             std::string goalString:     specifies the goal state
 	*@return -
 *********************************************************/
-SearchAlgorithms::SearchAlgorithms(std::string initialString,std::string goalString){
+SearchAlgorithms::SearchAlgorithms(std::string initialString,std::string goalString, int width, int heigth){
     //ctor
-    initial = new State(initialString);
-    goal = new State(goalString);
+    initial = new State(initialString,width,heigth);
+    goal = new State(goalString,width,heigth);
     //initial->print();
     //goal->print();
 }
@@ -31,16 +31,21 @@ SearchAlgorithms::~SearchAlgorithms(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::backtracking(){
+strMethodStats SearchAlgorithms::backtracking(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> solution;
-    if(backtrackingAux(initial, 0, solution)){
-        printf("Solution found!\n");
-        for(int i = (solution.size()-1);i>=0;i--){
-            solution[i]->print();
-        }
-    }else{
-        printf("Solution not found!\n");
-    }
+
+    bool success = backtrackingAux(initial, 0, solution);
+
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!success, solution.front(),0, (int) solution.size(), time);
 }
 
 /*
@@ -399,7 +404,11 @@ strMethodStats SearchAlgorithms::orderedSearch(){
 	*@param -
 	*@return void: -
 *********************************************************/
-void SearchAlgorithms::ida(){
+strMethodStats SearchAlgorithms::ida(){
+
+    //Start measuring time:
+    auto start = std::chrono::system_clock::now();
+
     std::vector<State*> solution;
     int step = h1(initial);
     int old_step = -1;
@@ -415,16 +424,13 @@ void SearchAlgorithms::ida(){
             //printf("New step is equal to %d",step);
         }
     }
-    if(success){
-        printf("Solution found!\n");
 
-        for(int i = (solution.size()-1);i>=0;i--){
-            solution[i]->print();
-        }
-        //Print solution backwards
-    }else{
-        printf("Solution not found!");
-    }
+    //Get time elapsed in milliseconds
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    float time = (float)elapsed.count();
+
+    return buildStats(!success, solution.front(),0, (int) solution.size(), time);
 
 }
 
@@ -546,7 +552,7 @@ void SearchAlgorithms::printSolution(State* path){
 	*@param State *s:       contains the state to have its heuristic value calculated
 	*@return int:           the heuristic value for a specific state
 *********************************************************/
-int SearchAlgorithms::h1(State* s){
+int SearchAlgorithms::h2(State* s){
     std::string stateString = s->getString();
     std::string goalString = goal->getString();
     int piecesOutOfPlace = 0;
@@ -563,7 +569,8 @@ int SearchAlgorithms::h1(State* s){
 	*@param State *s:       contains the state to have its heuristic value calculated
 	*@return int:           the heuristic value for a specific state
 *********************************************************/
-int SearchAlgorithms::h2(State* s){
+int SearchAlgorithms::h1(State* s){
+    int width = s->getWidth();
     std::string stateString = s->getString();
     std::string goalString = goal->getString();
     int manhattanDistance = 0;
@@ -571,10 +578,10 @@ int SearchAlgorithms::h2(State* s){
         for(unsigned int j = 0;j<stateString.size();j++){
             if(goalString[i]==stateString[j]){
                 int iGoal,jGoal,iState,jState;
-                iGoal = i/3;
-                jGoal = i%3;
-                iState = j/3;
-                jState = j%3;
+                iGoal = i/width;
+                jGoal = i%width;
+                iState = j/width;
+                jState = j%width;
                 manhattanDistance += abs(iGoal - iState)+abs(jGoal - jState);
                 break;
             }
