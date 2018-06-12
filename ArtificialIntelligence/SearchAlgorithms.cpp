@@ -6,7 +6,7 @@
 #include <iostream>
 #include<chrono>
 #define INFINITY 9999
-
+#define MAX_LEVEL 40
 /*
     Constructor of SearchAlgorithm class
 	*@param std::string initialString:	specifies the initial state
@@ -165,15 +165,21 @@ strMethodStats SearchAlgorithms::depthSearch(){
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
 
-    std::vector<State*> openNodes;
+    std::list<State*> openNodes;
     std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     State * current;
     bool solutionFound = false;
     while(!openNodes.empty()){
-        current = openNodes[openNodes.size() -1];
-        openNodes.pop_back();
+        current = openNodes.back();
 
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        if(level(current)> MAX_LEVEL){ //Busca em profundidade limtada: simula fila quando passo do nivel maximo
+            current = openNodes.front();
+            openNodes.pop_front();
+        }else{
+            openNodes.pop_back();
+        }
         State* left = current->getLeft();
         State* right = current->getRight();
         State* top = current->getTop();
@@ -229,6 +235,9 @@ strMethodStats SearchAlgorithms::greedy(){
 
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
+
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
         openNodesCosts.erase(openNodesCosts.begin() + minIndex);
@@ -299,6 +308,9 @@ strMethodStats SearchAlgorithms::astar(){
 
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
+
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
         openNodesCosts.erase(openNodesCosts.begin() + minIndex);
@@ -370,6 +382,9 @@ strMethodStats SearchAlgorithms::orderedSearch(){
 
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
+
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
         openNodesCosts.erase(openNodesCosts.begin() + minIndex);

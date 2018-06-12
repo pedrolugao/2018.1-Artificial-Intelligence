@@ -84,3 +84,33 @@
 	<iostream>
 	<chrono>
 
+1528814175 source:/home/getcomp06/Documentos/github/ArtificialIntelligence/main.cpp
+	<iostream>
+	"State.h"
+	"SearchAlgorithms.h"
+
+1528811241 /home/getcomp06/Documentos/github/ArtificialIntelligence/State.h
+	<string>
+	<vector>
+
+1528811241 /home/getcomp06/Documentos/github/ArtificialIntelligence/SearchAlgorithms.h
+	"State.h"
+	<time.h>
+	<string>
+	<vector>
+
+1528813998 source:/home/getcomp06/Documentos/github/ArtificialIntelligence/SearchAlgorithms.cpp
+	"SearchAlgorithms.h"
+	<vector>
+	<string>
+	<list>
+	<stdio.h>
+	<iostream>
+	<chrono>
+
+1528811241 source:/home/getcomp06/Documentos/github/ArtificialIntelligence/State.cpp
+	"State.h"
+	<stdlib.h>
+	<iostream>
+	<sstream>
+

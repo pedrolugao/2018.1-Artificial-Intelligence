@@ -14,9 +14,9 @@ int main(){
    // SearchAlgorithms program("123506478","123560478",3,3); //possível, p/ backtracking
     //SearchAlgorithms program("FE8CAB9D26513740","123456789ABCDEF0",4,4);//80 movimentos (https://puzzling.stackexchange.com/questions/24265/what-is-the-superflip-on-15-puzzle)
 
-    std::cout<<"Breadth Search:"<<std::endl;
-    strMethodStats breadth = program.breadthSearch();
-    program.printStats(breadth, true);
+    //std::cout<<"Breadth Search:"<<std::endl;
+    //strMethodStats breadth = program.breadthSearch();
+    //program.printStats(breadth, true);
 
     std::cout<<"Depth Search:"<<std::endl;
     strMethodStats depth = program.depthSearch();
