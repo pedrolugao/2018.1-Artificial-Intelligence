@@ -99,7 +99,16 @@ void SearchAlgorithms::printStats(strMethodStats stats, bool flag){
     std::cout << stats.notFound << ", " << stats.depth << ", " << stats.cost << ", " << stats.openNodesSize << ", " << stats.closedNodesSize << ", " << stats.ramification << ", " << stats.time << std::endl;
 
 }
-
+int level(State *s){
+    State* pai = s->getParent();
+    if(pai == NULL) return 0;
+    int contador = 1;
+    while(pai!=NULL){
+        pai = pai->getParent();
+        contador++;
+    }
+    return contador;
+}
 /*
 	Runs the breadth search method
 	*@param -
@@ -117,6 +126,9 @@ strMethodStats SearchAlgorithms::breadthSearch(){
     bool solutionFound = false;
     while(!openNodes.empty()){
         current = openNodes.front();
+
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+
         openNodes.pop_front();
 
         State* left = current->getLeft();
