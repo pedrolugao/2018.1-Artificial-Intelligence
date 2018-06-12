@@ -7,6 +7,34 @@
 #include<chrono>
 #define INFINITY 9999
 #define MAX_LEVEL 40
+
+int level(State *s){
+    State* pai = s->getParent();
+    if(pai == NULL) return 0;
+    int contador = 1;
+    while(pai!=NULL){
+        pai = pai->getParent();
+        contador++;
+    }
+    return contador;
+}
+
+void SearchAlgorithms::freeLists(){
+    for(int i = 0; i<closedNodes.size();i++)
+        if(goal != closedNodes.at(i) && initial != closedNodes.at(i))
+            delete closedNodes.at(i);
+
+
+    for(int i = 0; i<openNodes.size();i++)
+        if(goal!= openNodes.at(i) && initial != openNodes.at(i))
+            delete openNodes.at(i);
+
+
+
+    openNodes.clear();
+    closedNodes.clear();
+}
+
 /*
     Constructor of SearchAlgorithm class
 	*@param std::string initialString:	specifies the initial state
@@ -57,6 +85,9 @@ strMethodStats SearchAlgorithms::backtracking(){
 	*@return bool:              1 if the goal was found, 0 otherwise
 *********************************************************/
 bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &solution){
+    printf("\rNivel: %d",level(s));
+    if(level(s)> MAX_LEVEL) return false;
+
     if(compare(s, goal)){
         solution.push_back(s);
         return true;
@@ -97,18 +128,9 @@ void SearchAlgorithms::printStats(strMethodStats stats, bool flag){
     if(flag)
         std::cout << "notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time" << std::endl;
     std::cout << stats.notFound << ", " << stats.depth << ", " << stats.cost << ", " << stats.openNodesSize << ", " << stats.closedNodesSize << ", " << stats.ramification << ", " << stats.time << std::endl;
+    freeLists();
+}
 
-}
-int level(State *s){
-    State* pai = s->getParent();
-    if(pai == NULL) return 0;
-    int contador = 1;
-    while(pai!=NULL){
-        pai = pai->getParent();
-        contador++;
-    }
-    return contador;
-}
 /*
 	Runs the breadth search method
 	*@param -
@@ -119,8 +141,8 @@ strMethodStats SearchAlgorithms::breadthSearch(){
     auto start = std::chrono::system_clock::now();
 
 
-    std::list<State*> openNodes;
-    std::vector<State*> closedNodes;
+    //std::list<State*> openNodes;
+    //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     State * current;
     bool solutionFound = false;
@@ -129,7 +151,7 @@ strMethodStats SearchAlgorithms::breadthSearch(){
 
         printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
 
-        openNodes.pop_front();
+        openNodes.erase(openNodes.begin());
 
         State* left = current->getLeft();
         State* right = current->getRight();
@@ -161,12 +183,11 @@ strMethodStats SearchAlgorithms::breadthSearch(){
 	*@return void: -
 *********************************************************/
 strMethodStats SearchAlgorithms::depthSearch(){
-
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
-
-    std::list<State*> openNodes;
-    std::vector<State*> closedNodes;
+    printf("%d",openNodes.size());
+    //std::list<State*> openNodes;
+    //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     State * current;
     bool solutionFound = false;
@@ -176,7 +197,7 @@ strMethodStats SearchAlgorithms::depthSearch(){
         printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
         if(level(current)> MAX_LEVEL){ //Busca em profundidade limtada: simula fila quando passo do nivel maximo
             current = openNodes.front();
-            openNodes.pop_front();
+            openNodes.erase(openNodes.begin());
         }else{
             openNodes.pop_back();
         }
@@ -216,9 +237,9 @@ strMethodStats SearchAlgorithms::greedy(){
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
 
-    std::vector<State*> openNodes;
+    //std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
-    std::vector<State*> closedNodes;
+    //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     openNodesCosts.push_back(h1(initial));
     State * current;
@@ -289,9 +310,9 @@ strMethodStats SearchAlgorithms::astar(){
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
 
-    std::vector<State*> openNodes;
+    //std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
-    std::vector<State*> closedNodes;
+    //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     openNodesCosts.push_back(0 + h1(initial));
     State * current;
@@ -363,9 +384,9 @@ strMethodStats SearchAlgorithms::orderedSearch(){
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
 
-    std::vector<State*> openNodes;
+    //std::vector<State*> openNodes;
     std::vector<int> openNodesCosts;
-    std::vector<State*> closedNodes;
+    //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
     openNodesCosts.push_back(0);
     State * current;
@@ -471,6 +492,9 @@ strMethodStats SearchAlgorithms::ida(){
 	*@return bool:              1 if the goal was found, 0 otherwise
 *********************************************************/
 bool SearchAlgorithms::idaAux(State* s,int step, int cost,int *minThrow, std::vector<State*> &solution){
+
+    printf("\rNivel: %d",level(s));
+
     int f = cost + h1(s);
     if(f>step){
         if(f < (*minThrow)){

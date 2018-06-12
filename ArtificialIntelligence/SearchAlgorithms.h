@@ -4,6 +4,7 @@
 #include <time.h>
 #include <string>
 #include <vector>
+#include<list>
 
 typedef struct{
     bool notFound;
@@ -28,12 +29,17 @@ class SearchAlgorithms{
         strMethodStats breadthSearch();
         strMethodStats orderedSearch();
         strMethodStats ida();
+        void freeLists();
 
         void printSolution(State* path);
         void printStats(strMethodStats stats, bool flag = false);
     protected:
 
     private:
+
+        std::vector<State*> openNodes;
+        std::vector<State*> closedNodes;
+
         State* initial;
         State* goal;
 
