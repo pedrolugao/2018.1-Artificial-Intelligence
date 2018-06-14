@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include "State.h"
 #include "SearchAlgorithms.h"
 using namespace std;
@@ -6,7 +7,8 @@ using namespace std;
 int main(){
     //SearchAlgorithms program("123456078","123456780",3,3); //possivel
     //SearchAlgorithms program("123506478","123456780",3,3); //possivel
-    SearchAlgorithms program("012356478","123456780",3,3);// possivel
+    //SearchAlgorithms program("012356478","123456780",3,3);// possivel
+    SearchAlgorithms program("867205314","123456780",3,3);// possivel
     //SearchAlgorithms program("123405","123450",2,3);
     //SearchAlgorithms program("1234560897AB","123456789AB0",3,4);
     //SearchAlgorithms program("867254301","123456780",3,3);// MUITO DIFICIL http://w01fe.com/blog/2009/01/the-hardest-eight-puzzle-instances-take-31-moves-to-solve/
@@ -25,7 +27,6 @@ int main(){
     std::cout<<"Ordered Search:"<<std::endl;
     strMethodStats ordered = program.orderedSearch();
     program.printStats(ordered, true);
-
 
     std::cout<<"Greedy Search:"<<std::endl;
     strMethodStats greedy = program.greedy();

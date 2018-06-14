@@ -115,3 +115,35 @@
 	<iostream>
 	<sstream>
 
+1528988854 source:/home/almeida/Documents/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/SearchAlgorithms.cpp
+	"SearchAlgorithms.h"
+	<vector>
+	<string>
+	<list>
+	<stdio.h>
+	<iostream>
+	<chrono>
+
+1528988854 /home/almeida/Documents/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/SearchAlgorithms.h
+	"State.h"
+	<time.h>
+	<string>
+	<vector>
+	<list>
+
+1528813232 /home/almeida/Documents/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/State.h
+	<string>
+	<vector>
+
+1528813232 source:/home/almeida/Documents/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/State.cpp
+	"State.h"
+	<stdlib.h>
+	<iostream>
+	<sstream>
+
+1528988935 source:/home/almeida/Documents/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/main.cpp
+	<iostream>
+	<stdio.h>
+	"State.h"
+	"SearchAlgorithms.h"
+
