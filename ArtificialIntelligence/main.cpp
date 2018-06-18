@@ -24,9 +24,9 @@ int main(){
     strMethodStats depth = program.depthSearch();
     program.printStats(depth, true);
 
-    std::cout<<"Ordered Search:"<<std::endl;
-    strMethodStats ordered = program.orderedSearch();
-    program.printStats(ordered, true);
+    //std::cout<<"Ordered Search:"<<std::endl;
+    //strMethodStats ordered = program.orderedSearch();
+    //program.printStats(ordered, true);
 
     std::cout<<"Greedy Search:"<<std::endl;
     strMethodStats greedy = program.greedy();

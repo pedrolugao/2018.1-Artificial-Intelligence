@@ -148,8 +148,8 @@ strMethodStats SearchAlgorithms::breadthSearch(){
     bool solutionFound = false;
     while(!openNodes.empty()){
         current = openNodes.front();
-
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        if(openNodes.size()%10000==0)
+            printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         openNodes.erase(openNodes.begin());
 
@@ -194,7 +194,7 @@ strMethodStats SearchAlgorithms::depthSearch(){
     while(!openNodes.empty()){
         current = openNodes.back();
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
         if(level(current)> MAX_LEVEL){ //Busca em profundidade limtada: simula fila quando passo do nivel maximo
             current = openNodes.front();
             openNodes.erase(openNodes.begin());
@@ -257,7 +257,7 @@ strMethodStats SearchAlgorithms::greedy(){
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
@@ -330,7 +330,7 @@ strMethodStats SearchAlgorithms::astar(){
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
