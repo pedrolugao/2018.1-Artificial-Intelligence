@@ -1,0 +1,17 @@
+IDA* Search:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 4, 4, 0, 4, 1, 0
+IDA* Search:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 13, 13, 0, 13, 1, 13
+IDA* Search:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 25, 25, 0, 25, 1, 4161
+IDA* Search:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 29, 29, 0, 29, 1, 4500
+IDA* Search:

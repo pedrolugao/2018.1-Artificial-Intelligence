@@ -7,6 +7,7 @@
 #include<chrono>
 #define INFINITY 9999
 #define MAX_LEVEL 40
+#include <stdlib.h>
 
 int level(State *s){
     State* pai = s->getParent();
@@ -85,7 +86,7 @@ strMethodStats SearchAlgorithms::backtracking(){
 	*@return bool:              1 if the goal was found, 0 otherwise
 *********************************************************/
 bool SearchAlgorithms::backtrackingAux(State *s, int cost, std::vector<State*> &solution){
-    printf("\rNivel: %d",level(s));
+    //printf("\rNivel: %d",level(s));
     if(level(s)> MAX_LEVEL) return false;
 
     if(compare(s, goal)){
@@ -148,8 +149,8 @@ strMethodStats SearchAlgorithms::breadthSearch(){
     bool solutionFound = false;
     while(!openNodes.empty()){
         current = openNodes.front();
-        if(openNodes.size()%10000==0)
-            printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
+        //if(openNodes.size()%10000==0)
+            //printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         openNodes.erase(openNodes.begin());
 
@@ -194,7 +195,7 @@ strMethodStats SearchAlgorithms::depthSearch(){
     while(!openNodes.empty()){
         current = openNodes.back();
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
+        //printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
         if(level(current)> MAX_LEVEL){ //Busca em profundidade limtada: simula fila quando passo do nivel maximo
             current = openNodes.front();
             openNodes.erase(openNodes.begin());
@@ -257,7 +258,7 @@ strMethodStats SearchAlgorithms::greedy(){
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
+        //printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
@@ -330,7 +331,7 @@ strMethodStats SearchAlgorithms::astar(){
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
+        //printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",closedNodes.size(),openNodes.size(),level(current));
 
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
@@ -404,7 +405,7 @@ strMethodStats SearchAlgorithms::orderedSearch(){
         //Get min element from open nodes and erase from list
         current = openNodes[minIndex];
 
-        printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
+        //printf("\rFechados:%d, Abertos:%d, Nivel:%d\t\t\t\t\t\t",openNodes.size(),closedNodes.size(),level(current));
 
         currentCost = openNodesCosts[minIndex];
         openNodes.erase(openNodes.begin() + minIndex);
@@ -493,7 +494,7 @@ strMethodStats SearchAlgorithms::ida(){
 *********************************************************/
 bool SearchAlgorithms::idaAux(State* s,int step, int cost,int *minThrow, std::vector<State*> &solution){
 
-    printf("\rNivel: %d",level(s));
+    //printf("\rNivel: %d",level(s));
 
     int f = cost + h1(s);
     if(f>step){
