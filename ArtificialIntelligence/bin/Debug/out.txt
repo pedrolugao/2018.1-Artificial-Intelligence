@@ -1,17 +1,61 @@
+Greedy Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 13, 13, 54, 71, 1.76056, 13
+A* Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 13, 13, 44, 56, 1.78571, 8
 IDA* Search:
 
 notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
-0, 4, 4, 0, 4, 1, 0
+0, 13, 13, 0, 13, 1, 11
+Backtracking:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 37, 37, 0, 37, 1, 12763
+Breadth Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 13, 13, 1333, 1718, 1.7759, 352
+Ordered Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 13, 13, 1526, 2249, 1.67852, 438
+Depth Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 37, 37, 3529, 4305, 1.81974, 1956
+Greedy Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 49, 49, 365, 521, 1.70058, 213
+A* Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 25, 25, 5325, 7703, 1.69129, 2525
 IDA* Search:
 
 notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
-0, 13, 13, 0, 13, 1, 13
+0, 25, 25, 0, 25, 1, 3515
+Backtracking:
+
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 39, 39, 0, 39, 1, 420456
+Breadth Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 25, 25, 936086, 1257855, 1.74419, 774218
+Ordered Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 25, 25, 1077824, 1548592, 1.696, 1.09344e+007
+Depth Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 39, 39, 2811518, 3455162, 1.81372, 3.05377e+006
+Greedy Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 51, 51, 264, 386, 1.68394, 226
+A* Search:
+notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
+0, 29, 29, 6498, 9631, 1.6747, 3183
 IDA* Search:
 
 notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
-0, 25, 25, 0, 25, 1, 4161
-IDA* Search:
+0, 29, 29, 0, 29, 1, 3944
+Backtracking:
 
 notFound, depth, cost, openNodesSize, closedNodesSize, ramification, time
-0, 29, 29, 0, 29, 1, 4500
-IDA* Search:
+0, 39, 39, 0, 39, 1, 961372
+Breadth Search:

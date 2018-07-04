@@ -55,8 +55,8 @@ class SearchAlgorithms{
         strMethodStats buildStats(bool notFound, State * solution, int openNodesSize, int closedNodesSize, float time);
 
         //Heuristics:
-        int h1(State* s); //piecesOutOfPlace
-        int h2(State* s); //manhattanDistance
+        int h1(State* s); //manhattanDistance
+        int h2(State* s); //piecesOutOfPlace
 
 
 };

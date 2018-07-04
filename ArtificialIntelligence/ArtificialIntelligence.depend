@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1526672860 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
+1530666320 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\main.cpp
 	<iostream>
+	<stdio.h>
 	"State.h"
 	"SearchAlgorithms.h"
 
-1526357027 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.h
+1526929219 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.h
 	<string>
 	<vector>
 
-1526500885 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.cpp
+1526929219 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\state.cpp
 	"State.h"
 	<stdlib.h>
 	<iostream>
@@ -40,19 +41,22 @@
 	<string>
 	<stdio.h>
 
-1526672843 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
+1530670244 source:c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.cpp
 	"SearchAlgorithms.h"
 	<vector>
 	<string>
 	<list>
 	<stdio.h>
 	<iostream>
+	<chrono>
+	<stdlib.h>
 
-1526672648 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.h
+1528851798 c:\users\almei\documents\github\2018.1-artificial-intelligence\artificialintelligence\searchalgorithms.h
 	"State.h"
 	<time.h>
 	<string>
 	<vector>
+	<list>
 
 1528809158 source:/home/pedro/Documentos/Github/2018.1-Artificial-Intelligence/ArtificialIntelligence/main.cpp
 	<iostream>

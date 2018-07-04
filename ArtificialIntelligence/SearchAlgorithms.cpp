@@ -186,7 +186,6 @@ strMethodStats SearchAlgorithms::breadthSearch(){
 strMethodStats SearchAlgorithms::depthSearch(){
     //Start measuring time:
     auto start = std::chrono::system_clock::now();
-    printf("%d",openNodes.size());
     //std::list<State*> openNodes;
     //std::vector<State*> closedNodes;
     openNodes.push_back(initial);
